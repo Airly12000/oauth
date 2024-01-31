@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 
 interface User {
   username: string;
@@ -23,6 +24,14 @@ const Login = () => {
     event.preventDefault();
     console.log(userDetails);
   };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (res) => console.log(res),
+    onError: (err) => console.log(err),
+    // flow: "auth-code",
+  });
+
+  useEffect(() => {});
 
   return (
     <div
@@ -72,9 +81,16 @@ const Login = () => {
         <button
           type="button"
           className="btn btn-outline-warning rounded-pill w-50 mt-2"
+          onClick={() => googleLogin()}
         >
           Login with Google
         </button>
+        {/* <GoogleLogin
+          onSuccess={(res) => console.log(res)}
+          onError={() => console.log("Error")}
+          shape="pill"
+          theme="filled_black"
+        /> */}
       </div>
     </div>
   );
